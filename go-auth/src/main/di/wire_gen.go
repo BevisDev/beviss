@@ -7,32 +7,32 @@
 package di
 
 import (
-	controller2 "goauth/src/main/controller"
+	"goauth/src/main/controller"
 	"goauth/src/main/repository/repositoryImpl"
-	impl2 "goauth/src/main/service/impl"
+	"goauth/src/main/service/impl"
 )
 
 // Injectors from auth_di.go:
 
-func NewAuthDI() *controller2.AuthController {
-	iAuthService := impl2.NewAuthServiceImpl()
-	authController := controller2.NewAuthController(iAuthService)
+func NewAuthDI() *controller.AuthController {
+	iAuthService := impl.NewAuthServiceImpl()
+	authController := controller.NewAuthController(iAuthService)
 	return authController
 }
 
 // Injectors from ping_di.go:
 
-func NewPingDI() *controller2.PingController {
+func NewPingDI() *controller.PingController {
 	iPingRepository := repositoryImpl.NewPingRepositoryImpl()
-	iPingService := impl2.NewPingServiceImpl(iPingRepository)
-	pingController := controller2.NewPingController(iPingService)
+	iPingService := impl.NewPingServiceImpl(iPingRepository)
+	pingController := controller.NewPingController(iPingService)
 	return pingController
 }
 
 // Injectors from user_di.go:
 
-func NewUserDI() *controller2.UserController {
-	iUserService := impl2.NewUserServiceImpl()
-	userController := controller2.NewUserController(iUserService)
+func NewUserDI() *controller.UserController {
+	iUserService := impl.NewUserServiceImpl()
+	userController := controller.NewUserController(iUserService)
 	return userController
 }

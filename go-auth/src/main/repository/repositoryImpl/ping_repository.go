@@ -2,7 +2,7 @@ package repositoryImpl
 
 import (
 	"context"
-	"goauth/src/main/infrastructure/database"
+	"goauth/src/main/global"
 	"goauth/src/main/repository"
 )
 
@@ -13,14 +13,14 @@ func NewPingRepositoryImpl() repository.IPingRepository {
 	return &PingRepositoryImpl{}
 }
 
-func (p PingRepositoryImpl) Get1MSSQL(ctx context.Context, schema string) bool {
+func (p PingRepositoryImpl) Get1MSSQL(ctx context.Context) bool {
 	var result int
-	database.GetUsingNamed(ctx, &result, schema, "SELECT 1", nil)
+	global.AuthDB.GetUsingNamed(ctx, &result, "SELECT 1", nil)
 	return result == 1
 }
 
-func (p PingRepositoryImpl) Get1Orc(ctx context.Context, schema string) bool {
+func (p PingRepositoryImpl) Get1Orc(ctx context.Context) bool {
 	var result int
-	database.GetUsingNamed(ctx, &result, schema, "SELECT 1 FROM DUAL", nil)
+	global.AuthDB.GetUsingNamed(ctx, &result, "SELECT 1 FROM DUAL", nil)
 	return result == 1
 }

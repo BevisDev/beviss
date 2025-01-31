@@ -1,11 +1,11 @@
 package middleware
 
 import (
+	"github.com/BevisDev/backend-template/utils"
 	"github.com/gin-gonic/gin"
 	"goauth/src/main/consts"
 	"goauth/src/main/dto/response"
-	"goauth/src/main/infrastructure/logger"
-	"goauth/src/main/utils"
+	"goauth/src/main/global"
 	"net/http"
 )
 
@@ -14,7 +14,7 @@ func ErrorHandler() gin.HandlerFunc {
 		defer func() {
 			state := utils.GetState(c)
 			if err := recover(); err != nil {
-				logger.Error(state, "Error occurred {}", err)
+				global.Logger.Error(state, "Error occurred {}", err)
 			}
 			response.ServerError(c, consts.ServerError)
 			c.Abort()

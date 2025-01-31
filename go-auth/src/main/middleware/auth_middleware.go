@@ -1,10 +1,10 @@
 package middleware
 
 import (
+	"github.com/BevisDev/backend-template/utils"
 	"github.com/gin-gonic/gin"
 	"goauth/src/main/consts"
 	"goauth/src/main/dto/response"
-	"goauth/src/main/utils"
 )
 
 func AuthHandler() gin.HandlerFunc {

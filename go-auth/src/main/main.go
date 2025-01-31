@@ -1,9 +1,8 @@
 package main
 
-import (
-	"goauth/src/main/startup"
-)
-import _ "goauth/src/resources/swagger"
+import "goauth/src/main/startup"
+
+//import _ "goauth/src/resources/swagger"
 
 // @title           API Specification
 // @version         1.0

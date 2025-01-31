@@ -16,17 +16,17 @@ type Config struct {
 	LoggerConfig struct {
 		IsSplit    bool   `mapstructure:"isSplit"`
 		CronTime   string `mapstructure:"cronTime"`
-		LogAppDir  string `mapstructure:"logAppDir"`
-		LogRRDir   string `mapstructure:"logRRDir"`
-		LogExtDir  string `mapstructure:"logExtDir"`
+		FolderName string `mapstructure:"folderName"`
 		MaxSize    int    `mapstructure:"maxSize"`
 		MaxBackups int    `mapstructure:"maxBackups"`
 		MaxAge     int    `mapstructure:"maxAge"`
 		Compress   bool   `mapstructure:"compress"`
 	} `mapstructure:"logger"`
 
-	// Databases
-	Databases []Database `mapstructure:"databases"`
+	// Database
+	Database struct {
+		AuthDB Database `mapstructure:"authDB"`
+	} `mapstructure:"database"`
 
 	// Redis
 	RedisConfig struct {
@@ -43,14 +43,14 @@ type Config struct {
 }
 
 type Database struct {
-	Kind            string   `mapstructure:"kind"`
-	Host            string   `mapstructure:"host"`
-	Port            int      `mapstructure:"port"`
-	Username        string   `mapstructure:"username"`
-	Password        string   `mapstructure:"password"`
-	TimeoutSec      int      `mapstructure:"timeoutSec"`
-	MaxOpenConns    int      `mapstructure:"maxOpenConns"`
-	MaxIdleConns    int      `mapstructure:"maxIdleConns"`
-	ConnMaxLifeTime int      `mapstructure:"connMaxLifeTime"`
-	Schema          []string `mapstructure:"schema"`
+	Kind            string `mapstructure:"kind"`
+	Host            string `mapstructure:"host"`
+	Port            int    `mapstructure:"port"`
+	Username        string `mapstructure:"username"`
+	Password        string `mapstructure:"password"`
+	TimeoutSec      int    `mapstructure:"timeoutSec"`
+	MaxOpenConns    int    `mapstructure:"maxOpenConns"`
+	MaxIdleConns    int    `mapstructure:"maxIdleConns"`
+	ConnMaxLifeTime int    `mapstructure:"connMaxLifeTime"`
+	Schema          string `mapstructure:"schema"`
 }

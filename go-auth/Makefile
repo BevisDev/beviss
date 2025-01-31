@@ -4,7 +4,7 @@ APP_NAME = gobe
 # dir and main
 RESOURCES_DIR = src/resources
 MAIN_DIR = src/main
-INFRAS_DIR = $(MAIN_DIR)/infrastructure
+DI_DIR = $(MAIN_DIR)/di
 MAIN_FILE = $(MAIN_DIR)/main.go
 
 # default build if not args in make
@@ -32,7 +32,7 @@ di_install:
 
 di_gen:
 	@echo "Generating wire..."
-	@cd $(INFRAS_DIR)/di && wire gen
+	@cd $(DI_DIR) && wire gen
 
 # Build the application
 build: 

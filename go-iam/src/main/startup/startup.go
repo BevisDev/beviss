@@ -2,8 +2,11 @@ package startup
 
 import (
 	"github.com/BevisDev/backend-template/config"
+	"github.com/BevisDev/backend-template/consts"
+	"github.com/BevisDev/backend-template/database"
 	"github.com/BevisDev/backend-template/logger"
 	"github.com/BevisDev/backend-template/rest"
+	"github.com/BevisDev/backend-template/utils"
 	"github.com/gin-gonic/gin"
 	"goiam/src/main/global"
 	"goiam/src/main/router"
@@ -13,8 +16,8 @@ import (
 
 func start() *gin.Engine {
 	var (
-		//state     = utils.GenUUID()
-		err error
+		state = utils.GenUUID()
+		err   error
 	)
 	err = config.GetConfig(&global.AppConfig, "goauth", "yaml")
 	if err != nil {
@@ -25,7 +28,7 @@ func start() *gin.Engine {
 	// start logger
 	global.Logger = logger.NewLogger(&logger.ConfigLogger{
 		Profile:    global.AppConfig.ServerConfig.Profile,
-		FolderName: global.AppConfig.LoggerConfig.FolderName,
+		DirName:    global.AppConfig.LoggerConfig.DirName,
 		MaxSize:    global.AppConfig.LoggerConfig.MaxSize,
 		MaxBackups: global.AppConfig.LoggerConfig.MaxBackups,
 		MaxAge:     global.AppConfig.LoggerConfig.MaxAge,
@@ -43,26 +46,26 @@ func start() *gin.Engine {
 	}()
 
 	// db
-	//wg.Add(1)
-	//go func() {
-	//	defer wg.Done()
-	//	// init auth db
-	//	if global.AuthDB, err = database.NewDB(&database.ConfigDB{
-	//		Profile:      global.AppConfig.ServerConfig.Profile,
-	//		Kind:         "postgres",
-	//		Schema:       global.AppConfig.Database.AuthDB.Schema,
-	//		Host:         global.AppConfig.Database.AuthDB.Host,
-	//		Port:         global.AppConfig.Database.AuthDB.Port,
-	//		Username:     global.AppConfig.Database.AuthDB.Username,
-	//		Password:     global.AppConfig.Database.AuthDB.Password,
-	//		MaxOpenConns: global.AppConfig.Database.AuthDB.MaxOpenConns,
-	//		MaxIdleConns: global.AppConfig.Database.AuthDB.MaxIdleConns,
-	//		MaxLifeTime:  global.AppConfig.Database.AuthDB.ConnMaxLifeTime,
-	//		TimeoutSec:   global.AppConfig.Database.AuthDB.TimeoutSec,
-	//	}); err != nil {
-	//		global.Logger.Fatal(state, "authDB init error: {}", err)
-	//	}
-	//}()
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		// init auth db
+		if global.AuthDB, err = database.NewDB(&database.ConfigDB{
+			Profile:      global.AppConfig.ServerConfig.Profile,
+			Kind:         consts.Postgres,
+			Schema:       global.AppConfig.Database.AuthDB.Schema,
+			Host:         global.AppConfig.Database.AuthDB.Host,
+			Port:         global.AppConfig.Database.AuthDB.Port,
+			Username:     global.AppConfig.Database.AuthDB.Username,
+			Password:     global.AppConfig.Database.AuthDB.Password,
+			MaxOpenConns: global.AppConfig.Database.AuthDB.MaxOpenConns,
+			MaxIdleConns: global.AppConfig.Database.AuthDB.MaxIdleConns,
+			MaxLifeTime:  global.AppConfig.Database.AuthDB.ConnMaxLifeTime,
+			TimeoutSec:   global.AppConfig.Database.AuthDB.TimeoutSec,
+		}); err != nil {
+			global.Logger.Fatal(state, "authDB init error: {}", err)
+		}
+	}()
 
 	// redis
 	//wg.Add(1)

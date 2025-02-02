@@ -1,6 +1,9 @@
 package main
 
-import "goiam/src/main/startup"
+import (
+	_ "github.com/lib/pq"
+	"goiam/src/main/startup"
+)
 
 //import _ "goauth/src/resources/swagger"
 

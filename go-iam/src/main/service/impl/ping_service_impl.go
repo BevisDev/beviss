@@ -22,8 +22,7 @@ func NewPingServiceImpl(
 
 func (impl *PingServiceImpl) PingDB(ctx context.Context) map[string]bool {
 	return map[string]bool{
-		"Schema1": impl.pingRepository.Get1MSSQL(ctx),
-		"Schema2": impl.pingRepository.Get1Orc(ctx),
+		"Database": impl.pingRepository.Get1Postgres(ctx),
 	}
 }
 

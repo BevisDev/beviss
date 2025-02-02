@@ -16,7 +16,7 @@ type Config struct {
 	LoggerConfig struct {
 		IsSplit    bool   `mapstructure:"isSplit"`
 		CronTime   string `mapstructure:"cronTime"`
-		FolderName string `mapstructure:"folderName"`
+		DirName    string `mapstructure:"dirName"`
 		MaxSize    int    `mapstructure:"maxSize"`
 		MaxBackups int    `mapstructure:"maxBackups"`
 		MaxAge     int    `mapstructure:"maxAge"`
